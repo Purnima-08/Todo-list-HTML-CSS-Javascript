@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Image Example</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="content">
+        <h1>Todo List</h1>
+    </div>
+    <div class="task">
+        <h1>Get The Things Done!!</h1>
+    </div>
+    <center>
+    <div class="box">
+    <input type="text" class="box1" placeholder="Fill your list..." style="width: 350px; padding: 20px; font-size: 16px;" required>
+    <button class="buttons">ADD</button>
+    <button class="listbutton">My List</button>
+    <ul type="none" class="tasklist">
+    </ul>
+</div>
+</center>
+
+<script>
+    const taskInput = document.querySelector(".box1");
+    const addButton = document.querySelector(".buttons");
+    const mylist = document.querySelector(".listbutton");
+    const taskslist = document.querySelector(".tasklist");
+
+     const tasks=[];
+
+    addButton.addEventListener("click",()=>{
+        const tvalue=  taskInput.value.trim();
+
+        if(tvalue){
+            tasks.push(tvalue);
+            taskInput.value="";
+         }else{
+            alert("Enter the task first");
+         }
+    });
+
+    mylist.addEventListener("click", () => {
+    taskslist.innerHTML = "";
+    tasks.forEach((tvalue, index) => {
+        const listItem = document.createElement("li");
+        
+    
+        listItem.style.display = "flex";
+        listItem.style.alignItems = "center";
+        listItem.style.justifyContent = "space-between";
+        listItem.style.marginBottom = "20px";
+        listItem.style.padding = "10px";
+        listItem.style.border = "1px solid #ddd";
+        listItem.style.borderRadius = "5px";
+        listItem.style.backgroundColor = "#f9f9f9";
+        listItem.style.width = "600px";
+        listItem.style.borderRadius="20px"
+        listItem.style.backgroundColor="rgb(234, 166, 166)";
+        listItem.style.fontSize="20px";
+        listItem.style.border="solid";
+    
+        const textContainer = document.createElement("span");
+        textContainer.textContent = tvalue;
+
+        
+        textContainer.style.whiteSpace = "nowrap";
+        textContainer.style.overflow = "hidden"; 
+        textContainer.style.textOverflow = "ellipsis"; 
+        textContainer.style.flexGrow = "1"; 
+        textContainer.style.marginRight = "10px"; 
+
+    
+        const finishButton = document.createElement("button");
+        finishButton.textContent = "Over";
+        finishButton.style.margin = "0 10px";
+        finishButton.style.padding = "5px 10px";
+        finishButton.style.backgroundColor = "brown";
+        finishButton.style.color = "white";
+        finishButton.style.cursor = "pointer";
+        finishButton.style.borderRadius = "10px";
+        finishButton.style.border = "none";
+
+        finishButton.addEventListener("click", () => {
+            textContainer.style.color = "gray"; 
+        });
+
+        
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.style.margin = "0 10px";
+        deleteButton.style.padding = "5px 10px";
+        deleteButton.style.backgroundColor = "crimson";
+        deleteButton.style.color = "white";
+        deleteButton.style.cursor = "pointer";
+        deleteButton.style.borderRadius = "10px";
+        deleteButton.style.border = "none";
+
+        deleteButton.addEventListener("click", () => {
+            tasks.splice(tasks.indexOf(tvalue), 1);
+            listItem.remove(); 
+        });
+
+        
+        listItem.appendChild(textContainer);
+        listItem.appendChild(finishButton);
+        listItem.appendChild(deleteButton);
+
+        
+        taskslist.appendChild(listItem);
+    });
+
+    taskslist.style.display = "block"; 
+});
+
+</script>
+</body>
+</html>
